@@ -22,15 +22,16 @@ services:
             - GITUSER=gituser
             - GITPASSWORD=gitpassword
             - GITPROJECT=test
-            - my_uri='/'
+            - URLPATH='/'
             - FORCEPUSH="1"
             - GITHIGHLIGHT=1
             - IHM=mdl
+            - SERVER_NAME=gitweb-test1
         restart: always
         volumes:
             - gitweb-1:/var/lib/git/
         ports:
-            - 8080:80
+            - 8081:80
 
     gitweb-test2:
         image: ${IMAGE_NAME}:test
@@ -43,8 +44,9 @@ services:
             - GITPROJECT=test
             - FORCEPUSH="true"
             # NOT WORK
-            - my_uri=/path/to/
-            # - my_uri='/'
+            - URLPATH=/path/to/
+            # - URLPATH='/'
+            - SERVER_NAME=gitweb-test2
         restart: always
         volumes:
             - gitweb-2:/var/lib/git/
@@ -52,7 +54,7 @@ services:
         links:
             - gitweb-test1
         ports:
-            - 8081:80
+            - 8082:80
     gitweb-test3:
         image: ${IMAGE_NAME}:test
         container_name: gitweb-test3
@@ -62,7 +64,8 @@ services:
             - GITUSER=gituser
             - GITPASSWORD=gitpassword
             - GITPROJECT=test3
-            - my_uri='/'
+            - URLPATH='/'
+            - SERVER_NAME=gitweb-test3
         restart: always
         volumes:
             - gitweb-3:/var/lib/git/
@@ -71,4 +74,4 @@ services:
             - gitweb-test1
             - gitweb-test2
         ports:
-            - 8082:80
+            - 8083:80

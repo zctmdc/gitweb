@@ -63,7 +63,9 @@ RUN chmod +x /opt/gitweb/post-receive
 ENV FORCEPUSH ''
 
 # Setting base url via Docker
-ENV my_uri /
+ENV URLPATH /
+# setting client_max_body_size 
+ENV MAX_BODY_SIZE 64m
 
 VOLUME /opt/gitweb/remote/
 

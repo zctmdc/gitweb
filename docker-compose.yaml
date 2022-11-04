@@ -18,7 +18,7 @@ services:
             - GITPASSWORD=gitpassword
             - GITPROJECT=test
             - FORCEPUSH=""
-            - my_uri=/
+            - URLPATH=/
             - GITHIGHLIGHT=1
         ports:
             - 80:80

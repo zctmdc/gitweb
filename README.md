@@ -17,7 +17,8 @@ load when start image load file in
 - GITHIGHLIGHT (default `0`)
 - IHM (default "no-mdl")
 - FORCEPUSH ("" or every not blank string) manage force push to upstream when Downstream branch push
-- my_uri  set base url `/path/to/` `/`
+- URLPATH  set base url `/path/to/` `/`
+- MAX_BODY_SIZE set nginx client_max_body_size
 
 ## Volume
 
@@ -135,7 +136,7 @@ if don't want force push, **DO NOT** set environment: FORCEPUSH
 
 ## Setting base url via Docker environment
 
-use environment `my_uri` to set base url `/path/to/` `/`
+use environment `URLPATH` to set base url `/path/to/` `/`
  but not support clone or push
  PLEASE HELP FIX IT
 
@@ -185,3 +186,22 @@ If you want use a new design for ihm, you can use IHM variable
 ```bash
     docker run -d -e "CONTAINER_TIMEZONE=Europe/Paris" -e "IHM=mdl" -e "GITPROJECT=test" -v <localpath>:/var/lib/git --name test -p 80:80 fraoustin/gitweb
 ```
+
+## ERRO HELP
+
+- error: `RPC failed`  `HTTP 413`
+
+    ```text
+    Enumerating objects: 399, done.
+    Counting objects: 100% (399/399), done.
+    Delta compression using up to 16 threads
+    Compressing objects: 100% (219/219), done.
+    error: RPC failed; HTTP 413 curl 22 The requested URL returned error: 413
+    send-pack: unexpected disconnect while reading sideband packet
+    Writing objects: 100% (399/399), 21.97 MiB | 114.76 MiB/s, done.
+    Total 399 (delta 175), reused 399 (delta 175), pack-reused 0
+    fatal: the remote end hung up unexpectedly
+    Everything up-to-date
+    ```
+
+    > set MAX_BODY_SIZE

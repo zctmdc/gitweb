@@ -37,14 +37,15 @@ if [ "$1" = 'app' ]; then
         echo '# enable syntax highlighting' >>/etc/gitweb.conf
         echo "\$feature{'highlight'}{'default'} = [1];" >>/etc/gitweb.conf
     fi
-    if [ -n "${my_uri}" ]; then
-        sed -n '10p' /etc/nginx/conf.d/default.conf
-        sed -i "10s|.*|     location ${my_uri} {|" /etc/nginx/conf.d/default.conf
-        sed -n '10p' /etc/nginx/conf.d/default.conf
-    fi
+    # if [ -n "${URLPATH}" ]; then
+    #     sed -n '10p' /etc/nginx/conf.d/default.conf
+    #     sed -i "10s|.*|     location ${URLPATH} {|" /etc/nginx/conf.d/default.conf
+    #     sed -n '10p' /etc/nginx/conf.d/default.conf
+    # fi
+    sed -i "s|client_max_body_size.*|client_max_body_size ${MAX_BODY_SIZE};|g" /etc/nginx/conf.d/default.conf
     service fcgiwrap start
     nginx -g "daemon off;"
     /bin/run-parts --verbose --regex '\.(sh)$' "/usr/share/gitweb/docker-entrypoint.post"
 fi
 
-eval "$@"
+exec "$@"

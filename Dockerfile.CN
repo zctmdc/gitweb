@@ -64,7 +64,7 @@ WORKDIR /opt/gitweb/
 COPY ./src/hooks/post-receive /opt/gitweb/post-receive
 RUN chmod +x /opt/gitweb/post-receive
 ENV FORCEPUSH ''
-
+ENV MAX_BODY_SIZE 64m
 # Setting base url via Docker
 ENV my_uri /
 
